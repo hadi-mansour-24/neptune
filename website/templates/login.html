@@ -1,0 +1,107 @@
+{% extends 'base.html' %}{% block title %}Login - Neptune{% endblock %} {% block content %}
+<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh; background-color: #f8f8f8;">
+    <div class="w-100 px-3">
+        <div class="card border-0 shadow-lg" style="max-width: 420px; margin: 0 auto; background-color: #ffffff;">
+            <!-- Header Section -->
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <div class="mb-3">
+                        <i class="bi bi-newspaper" style="font-size: 3rem; color: #000000;"></i>
+                    </div>
+                    <h2 class="fw-bold mb-2" style="color: #000000;">Neptune</h2>
+                    <p style="color: #666666;">Article Search & Analytics Platform</p>
+                </div>
+
+                <!-- Login Form -->
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    <!-- Username Field -->
+                    <div class="mb-4">
+                        <label for="username" class="form-label fw-500 mb-2" style="color: #000000;">
+                            <i class="bi bi-person me-2"></i>Username
+                        </label>
+                        <input type="text" name="username" class="form-control form-control-lg" id="username"
+                            placeholder="Enter your username" required
+                            style="border-radius: 0.5rem; border: 1px solid #cccccc; background-color: #ffffff; color: #000000;">
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-500 mb-2" style="color: #000000;">
+                            <i class="bi bi-lock me-2"></i>Password
+                        </label>
+                        <input type="password" name="password" class="form-control form-control-lg" id="password"
+                            placeholder="Enter your password" required
+                            style="border-radius: 0.5rem; border: 1px solid #cccccc; background-color: #ffffff; color: #000000;">
+                    </div>
+
+                    <!-- Login Button -->
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-lg fw-bold"
+                            style="background-color: #000000; color: #ffffff; border: none;">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Error Messages -->
+                {% if error %}
+                <div class="alert alert-danger alert-dismissible fade show border-0" role="alert"
+                    style="background-color: #ffebee; color: #c62828; border: 1px solid #ef5350;">
+                    <i class="bi bi-exclamation-circle me-2"></i>
+                    <strong>Login Failed:</strong> {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+
+                {% if session.get('message') %}
+                <div class="alert alert-info alert-dismissible fade show border-0" role="alert"
+                    style="background-color: #e3f2fd; color: #1565c0; border: 1px solid #64b5f6;">
+                    <i class="bi bi-info-circle me-2"></i>
+                    {{ session.get('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer border-top px-5 py-4"
+                style="background-color: #f5f5f5; border-top: 1px solid #e0e0e0;">
+                <p class="text-center mb-0" style="color: #999999;">
+                    <small>© 2026 Neptune. All rights reserved.</small>
+                </p>
+            </div>
+        </div>
+
+        <!-- Security Message -->
+        <div class="text-center mt-4">
+            <p style="color: #999999; font-size: 0.875rem;">
+                <i class="bi bi-shield-check me-1"></i>Secure login with encrypted passwords
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles for Login Page -->
+<style>
+    .form-control:focus {
+        border-color: #000000 !important;
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1) !important;
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .btn-lg {
+        transition: all 0.3s ease;
+    }
+
+    .btn-lg:hover {
+        background-color: #1a1a1a !important;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+        border-radius: 1rem;
+    }
+</style>
+{% endblock %}

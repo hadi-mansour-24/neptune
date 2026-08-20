@@ -1,0 +1,149 @@
+{% extends 'base.html' %}{% block title %}Home - Neptune{% endblock %}{% block content %}
+<div class="container-fluid mt-n3">
+
+    <!-- Header Section -->
+    <div class="mb-0">
+        <h1 class="fw-bold mb-2">Article Search</h1>
+        <p class="text-muted">Search and manage articles across multiple sources</p>
+    </div>
+
+    <!-- Search Section -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+            <h5 class="card-title fw-bold mb-4">
+                <i class="bi bi-funnel me-2"></i>Search Filters
+            </h5>
+
+            <form id="searchForm" class="row g-3">
+
+                <!-- Source Dropdown -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label fw-500">Journal</label>
+                    <select class="form-select form-select-sm" name="source">
+                        <option value="">All Journals</option>
+                        {% for crawler in crawlers %}
+                        <option value="{{ crawler.name }}">{{ crawler.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Keywords -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label fw-500">Keywords</label>
+                    <input type="text" class="form-control form-control-sm" name="keyword"
+                        placeholder="Enter search text">
+                </div>
+
+                <!-- Date Range -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label fw-500">Date Range</label>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <input type="date" class="form-control form-control-sm" name="start_date">
+                        </div>
+                        <div class="col-6">
+                            <input type="date" class="form-control form-control-sm" name="end_date">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="col-lg-2 col-md-6 d-flex gap-2 align-items-end">
+                    <button type="submit" class="btn btn-outline-secondary flex-grow-1">
+                        <i class="bi bi-search me-1"></i>Search
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- Bulk Actions -->
+            <div class="border-top mt-4 pt-4">
+                <h6 class="fw-bold mb-3">
+                    <i class="bi bi-checkbox-checked me-2"></i>Bulk Actions
+                </h6>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" class="btn btn-outline-warning" id="addToFavoritesBtn"
+                        title="Add selected articles to favorites">
+                        <i class="bi bi-star me-1"></i>Add to Favorites
+                    </button>
+                    <button type="button" class="btn btn-outline-success export-btn"
+                        title="Export selected articles to Excel">
+                        <i class="bi bi-file-earmark-excel me-1"></i>Export to Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h5 class="card-title fw-bold mb-4">
+                <i class="bi bi-list-ul me-2"></i>Search Results
+            </h5>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr class="table-light border-bottom-2">
+                            <th style="width:50px;" class="text-center">
+                                <input type="checkbox" id="selectAll" class="article-checkbox form-check-input">
+                            </th>
+                            <th class="fw-bold">Journal</th>
+                            <th class="fw-bold">Title</th>
+                            <th class="fw-bold">Content</th>
+                            <!-- TEMPORARILY DISABLED: Media column - media display feature disabled for text-only content
+                            <th class="fw-bold">Media</th>
+                            -->
+                            <th class="fw-bold">Published</th>
+                            <th class="fw-bold">Archived</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody" class="border-top">
+                        <tr>
+                            <!-- TEMPORARILY DISABLED: Media column removed - showing 6 columns instead of 7
+                            <td colspan="7" class="text-center py-5 text-muted">
+                            -->
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                <p>Ready for search! Use the filters above to find articles.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- TEMPORARILY DISABLED: Image Modal - media display feature disabled
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0">
+            <div class="modal-header border-bottom-0 bg-light">
+                <h5 class="modal-title fw-bold">
+                    <i class="bi bi-image me-2"></i>Image Preview
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <img id="modalImg" src="" class="img-fluid rounded">
+            </div>
+            <div class="modal-footer border-top-0 bg-light">
+                <a id="downloadLink" href="#" class="btn btn-primary" download>
+                    <i class="bi bi-download me-1"></i>Download
+                </a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x me-1"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}
